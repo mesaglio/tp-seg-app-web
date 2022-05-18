@@ -1,5 +1,8 @@
 FROM ubuntu
-RUN apt-get update && apt-get upgrade -y && apt-get install git sudo=1.8.31-1ubuntu1 make gcc -y
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install git sudo=1.8.31-1ubuntu1 make gcc openjdk-8-jdk -y
 RUN adduser --disabled-password --gecos '' newuser
 USER newuser
 WORKDIR /home/newuser
