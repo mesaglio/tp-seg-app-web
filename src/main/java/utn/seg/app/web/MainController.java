@@ -10,9 +10,9 @@ public class MainController {
 
     private static final Logger logger = LogManager.getLogger("HelloWorld");
 
-    @GetMapping("/")
-    public String index(@RequestHeader("X-Api-Version") String apiVersion) {
-        logger.info("Received a request for API version " + apiVersion);
+    @GetMapping("/")//@RequestHeader("X-Api-Version") String apiVersion
+    public String index() {
+        logger.info("Received a request for API version ");
         return "Hello, world!";
     }
 
