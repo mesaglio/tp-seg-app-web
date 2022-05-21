@@ -18,3 +18,8 @@ code {
   margin-right: auto;
   width: 50%;
 }
+
+.add-movie-form {
+  font-family: sans-serif;
+  text-align: center;
+}
