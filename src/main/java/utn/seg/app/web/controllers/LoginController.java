@@ -27,8 +27,8 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest body) {
         String password = body.getPassword();
-        if (mySQLConnector.isValidUser(body.getUsername(), password)) {
-            String token = jwtComponent.createJWT(body.getUsername(), true);
+        if (mySQLConnector.isValidUser(body.getEmail(), password)) {
+            String token = jwtComponent.createJWT(body.getEmail(), true);
             Claims claim = jwtComponent.decodeJWT(token);
             logger.info(claim.get("isAdmin"));
             return ResponseEntity.status(200).header("TOKEN", token).body("");
