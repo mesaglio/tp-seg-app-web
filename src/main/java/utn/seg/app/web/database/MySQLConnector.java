@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 import utn.seg.app.web.models.User;
+
+import javax.annotation.PostConstruct;
 import java.sql.*;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class MySQLConnector {
 
     private Connection connector;
 
+    @PostConstruct
     private void Connector(){
         try {
             this.connector = DriverManager.getConnection(
@@ -30,7 +33,6 @@ public class MySQLConnector {
     public List<User> GetAllUser() {
         List<User> users = new ArrayList<User>();
         try {
-            this.Connector();
             Statement stmt = this.connector.createStatement();
             ResultSet rs = stmt.executeQuery("select * from users");
             while(rs.next()) {
@@ -40,7 +42,6 @@ public class MySQLConnector {
                 u.setRole(rs.getNString("role"));
                 users.add(u);
             }
-            this.connector.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -49,11 +50,9 @@ public class MySQLConnector {
 
     public void AddRoleToUser(String role, String email){
         try {
-            this.Connector();
             Statement stmt = this.connector.createStatement();
             String query = "update users set role = '" + role + "' where email = '" + email +"';";
             stmt.executeUpdate(query);
-            connector.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
