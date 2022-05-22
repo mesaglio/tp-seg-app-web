@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.seg.app.web.database.MySQLConnector;
 import utn.seg.app.web.jwt.Jwt;
+import utn.seg.app.web.models.AddRoleRequest;
 import utn.seg.app.web.models.User;
 
 import java.util.List;
@@ -33,13 +34,14 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/role")//@RequestHeader("JWT") String token
-    public ResponseEntity AddRoleToUser(@RequestParam String email, @RequestParam String role) {
+    @PutMapping("/user")//@RequestHeader("JWT") String token
+    public ResponseEntity AddRoleToUser(@RequestParam String email, @RequestBody AddRoleRequest roleRequest) {
         try {
             //Claims claim = jwtComponent.decodeJWT(token);
             //String email = claim.get("email").toString();
-            logger.info("Adding rol " + role + "to " + email);
-            dbConnector.AddRoleToUser(role, email);
+            String role = roleRequest.getRole();
+            logger.info("Adding rol " + role + " to " + email);
+            //dbConnector.AddRoleToUser(role, email);
             return ResponseEntity.status(200).build();
         } catch (io.jsonwebtoken.MalformedJwtException e) {
             return ResponseEntity.status(403).build();
