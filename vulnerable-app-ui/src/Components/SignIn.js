@@ -48,7 +48,7 @@ export default function SignIn(props) {
 
     signIn(email, password)
       .then(() => {
-        return navigate("/users");
+        return navigate("/movies");
       })
       .catch(() => {
         alert("Login failed!");

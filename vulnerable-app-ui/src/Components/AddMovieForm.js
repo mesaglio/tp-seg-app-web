@@ -19,8 +19,15 @@ function AddMovieForm() {
       name: movieName,
     };
 
-    api.post("/movies", body);
-    //Set movies state
+    api
+      .post("/movies", body)
+      .then(() => {
+        setMovieName("");
+        alert("Movie added successfully!");
+      })
+      .catch(() => {
+        alert("Failed on adding movie!");
+      });
   }
 
   return (

@@ -21,8 +21,14 @@ export default function MoviesTable() {
   }, []);
 
   async function getMovies() {
-    api.get("/movies");
-    //Set movies state
+    api
+      .get("/movies")
+      .then((response) => {
+        setMovies(response);
+      })
+      .catch(() => {
+        alert("Failed on fetching movies!");
+      });
   }
 
   return (

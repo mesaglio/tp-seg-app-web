@@ -7,27 +7,37 @@ import Select from "@mui/material/Select";
 import api from "./Services/Api";
 
 export default function RolesDropdown(props) {
-  const [role, setRole] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     console.log(props);
     setRole(props.row.role);
+    setEmail(props.row.email);
   }, []);
 
-  async function updateUser() {
-    // let body = {
-    //  role: role,
-    // };
-    // Update user role
-    //api.put("/users", body);
+  async function updateUserRole(newRole) {
+    let body = {
+      role: newRole,
+    };
+
+    await api
+      .put(`/user?email=${email}`, body)
+      .then(() => {
+        setRole(newRole);
+        alert("User role updated successfully!");
+      })
+      .catch(() => {
+        alert("Failed on updating user role!");
+      });
   }
 
   const handleChange = (event) => {
-    setRole(event.target.value);
+    updateUserRole(event.target.value);
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 140 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Roles</InputLabel>
         <Select
@@ -37,9 +47,9 @@ export default function RolesDropdown(props) {
           label="Age"
           onChange={handleChange}
         >
-          <MenuItem value={"User"}>User</MenuItem>
-          <MenuItem value={"Enterprise"}>Enterprise</MenuItem>
           <MenuItem value={"Admin"}>Admin</MenuItem>
+          <MenuItem value={"Enterprise"}>Enterprise</MenuItem>
+          <MenuItem value={"User"}>User</MenuItem>
         </Select>
       </FormControl>
     </Box>
