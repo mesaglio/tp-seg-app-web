@@ -25,9 +25,19 @@ public class MySQLConnector {
             e.printStackTrace();
         }
     }
-
+    
     public boolean isValidUser(String email, String password) {
-        return true;
+        try {
+            String query = "select * from users where email = ?";
+            PreparedStatement stmt = this.connector.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return rs.getNString("password").equals(password);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
     public List<User> GetAllUser() {
