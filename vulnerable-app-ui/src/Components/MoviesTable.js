@@ -8,9 +8,9 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, name: "Harry Potter", firstName: "Jon" },
-  { id: 2, name: "Titanic", firstName: "Cersei" },
-  { id: 3, name: "Scary Movie", firstName: "Jaime" },
+  { id: 1, name: "Harry Potter" },
+  { id: 2, name: "Titanic" },
+  { id: 3, name: "Scary Movie" },
 ];
 
 export default function MoviesTable() {
