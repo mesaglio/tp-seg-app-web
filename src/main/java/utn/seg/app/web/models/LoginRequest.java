@@ -4,11 +4,11 @@ package utn.seg.app.web.models;
 import utn.seg.app.web.crypto.Md5;
 
 public class LoginRequest {
-    private String username;
+    private String email;
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
