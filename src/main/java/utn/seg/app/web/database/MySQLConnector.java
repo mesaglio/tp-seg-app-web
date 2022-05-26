@@ -13,14 +13,14 @@ import utn.seg.app.web.models.Movie;
 
 @Component
 public class MySQLConnector {
-
+    private static final Logger logger = LogManager.getLogger("tp-seg-app-web");
     private Connection connector;
 
     @PostConstruct
     private void Connector(){
         try {
             this.connector = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true","root","root");
+                    "jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true","root","root");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,17 +96,13 @@ public class MySQLConnector {
         return false;
     }
 
-    public Movie addMovie(String name) {
+    public void addMovie(String name) {
         try {
             Statement stmt = this.connector.createStatement();
-            stmt.executeUpdate("insert into test.movies (name) values ('" + name + "');", Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                return new Movie(rs.getInt(1), name);
-            }
+            String query = "insert into test.movies (name) values ('" + name + "');";
+            stmt.execute(query);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
     }
 }

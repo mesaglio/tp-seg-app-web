@@ -47,8 +47,8 @@ public class MovieController {
                         .status(HttpStatus.BAD_REQUEST)
                         .body("Movie already exists");
             }
-            Movie newMovie = dbConnector.addMovie(movie.getName());
-            return ResponseEntity.ok(newMovie);
+            dbConnector.addMovie(movie.getName());
+            return ResponseEntity.ok().build();
         } catch (io.jsonwebtoken.MalformedJwtException e) {
             return ResponseEntity.status(403).build();
         }
