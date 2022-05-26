@@ -27,8 +27,7 @@ public class MovieController {
     @GetMapping("/movie")
     public ResponseEntity getAllMovies() {
         try {
-            // logger.info(jwtComponent.decodeJWT(token).get("isAdmin"));
-            List<Movie> movies = dbConnector.GetAllMovies();
+            List<Movie> movies = dbConnector.getAllMovies();
             return ResponseEntity.ok(movies);
         } catch (io.jsonwebtoken.MalformedJwtException e) {
             return ResponseEntity.status(403).build();
@@ -38,7 +37,11 @@ public class MovieController {
     @PostMapping("/movie")
     public ResponseEntity addMovie(@RequestBody MovieDTO movie) {
         try {
-            // logger.info(jwtComponent.decodeJWT(token).get("isAdmin"));
+            if (movie.getName().equals("")) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Name is empty");
+            }
             if (dbConnector.existsMovie(movie.getName())) {
                 return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
