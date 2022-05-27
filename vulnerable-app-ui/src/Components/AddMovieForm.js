@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import api from "./Services/Api";
+import { getToken } from "./Utils";
 
 function AddMovieForm() {
   const [movieName, setMovieName] = useState("");
@@ -20,7 +21,9 @@ function AddMovieForm() {
     };
 
     api
-      .post("/movies", body)
+      .post("/movies", body, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
       .then(() => {
         setMovieName("");
         alert("Movie added successfully!");

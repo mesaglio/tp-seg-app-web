@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import api from "./Services/Api";
+import { getToken } from "./Utils";
 
 export default function RolesDropdown(props) {
   const [email, setEmail] = useState("");
@@ -22,7 +23,9 @@ export default function RolesDropdown(props) {
     };
 
     await api
-      .put(`/user?email=${email}`, body)
+      .put(`/user?email=${email}`, body, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
       .then(() => {
         setRole(newRole);
         alert("User role updated successfully!");

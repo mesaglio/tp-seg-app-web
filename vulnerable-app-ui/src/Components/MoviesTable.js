@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import api from "./Services/Api";
+import { getToken } from "./Utils";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -22,7 +23,9 @@ export default function MoviesTable() {
 
   async function getMovies() {
     api
-      .get("/movies")
+      .get("/movies", {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
       .then((response) => {
         setMovies(response);
       })

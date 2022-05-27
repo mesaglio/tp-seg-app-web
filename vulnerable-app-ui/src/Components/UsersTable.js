@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import api from "./Services/Api";
 import RolesDropdown from "./RolesDropdown";
+import { getToken } from "./Utils";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -84,7 +85,9 @@ export default function UsersTable() {
 
   async function getUsers() {
     await api
-      .get("/user")
+      .get("/user", {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
       .then((response) => {
         setUsers(response);
       })
