@@ -11,10 +11,10 @@ import java.util.Map;
 @Component
 public class Jwt {
 
-    public String createJWT(String username, boolean isAdmin) {
+    public String createJWT(String email, boolean isAdmin) {
 
         Map<String, Object> info = new HashMap<>();
-        info.put("username", username);
+        info.put("email", email);
         info.put("isAdmin", isAdmin);
 
         JwtBuilder builder = Jwts.builder()
