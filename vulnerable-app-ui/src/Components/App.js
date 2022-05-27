@@ -6,12 +6,9 @@ import NotFound from "./NotFound";
 import NavBar from "./NavBar";
 import MoviesTable from "./MoviesTable";
 import AddMovieForm from "./AddMovieForm";
-import { getToken, isAdmin } from "./Utils";
+import { isLoggedIn, isAdmin } from "./Utils";
 
 function App() {
-  //let isLoggedIn = getToken() !== null;
-  let isLoggedIn = true; //For testing
-
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
@@ -19,7 +16,7 @@ function App() {
       <Route
         path="users"
         element={
-          isLoggedIn ? ( //Agregar la condicion del role admin de la DB
+          isLoggedIn() ? ( //Agregar la condicion del role admin de la DB
             <>
               <NavBar />
               <UsersTable />
@@ -32,7 +29,7 @@ function App() {
       <Route
         path="movies"
         element={
-          isLoggedIn ? (
+          isLoggedIn() ? (
             <>
               <NavBar />
               <MoviesTable />
@@ -45,12 +42,12 @@ function App() {
       <Route
         path="addmovie"
         element={
-          isLoggedIn && isAdmin() ? (
+          isLoggedIn() && isAdmin() ? (
             <>
               <NavBar />
               <AddMovieForm />
             </>
-          ) : isLoggedIn && !isAdmin() ? (
+          ) : isLoggedIn() && !isAdmin() ? (
             <NotFound />
           ) : (
             <SignIn />
