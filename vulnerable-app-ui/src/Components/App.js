@@ -6,7 +6,7 @@ import NotFound from "./NotFound";
 import NavBar from "./NavBar";
 import MoviesTable from "./MoviesTable";
 import AddMovieForm from "./AddMovieForm";
-import { isLoggedIn, isAdmin } from "./Utils";
+import { isLoggedIn, isAdmin, getUserRole, Roles } from "./Utils/Utils";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <Route
         path="users"
         element={
-          isLoggedIn() ? ( //Agregar la condicion del role admin de la DB
+          isLoggedIn() && getUserRole() === Roles.Admin ? (
             <>
               <NavBar />
               <UsersTable />

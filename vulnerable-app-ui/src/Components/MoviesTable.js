@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import api from "./Services/Api";
-import { getToken } from "./Utils";
+import { getToken } from "./Utils/Utils";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -37,7 +37,7 @@ export default function MoviesTable() {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        rows={rows} //TODO: Change it to movies state
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

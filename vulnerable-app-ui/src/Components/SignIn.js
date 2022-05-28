@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Navigate } from "react-router-dom";
 import api from "./Services/Api";
+import { getToken } from "./Utils/Utils";
 
 function Copyright(props) {
   return (
@@ -37,6 +38,19 @@ export default function SignIn(props) {
     });
   }
 
+  async function getUserRole() {
+    await api
+      .get("/user/role", {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
+      .then((response) => {
+        localStorage.setItem("role", response?.role);
+      })
+      .catch(() => {
+        alert("Failed on fetching user role!");
+      });
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,6 +64,9 @@ export default function SignIn(props) {
         console.log(response);
         const token = response.data.token;
         localStorage.setItem("token", token);
+
+        getUserRole();
+
         return <Navigate to="/movies" />;
       })
       .catch(() => {

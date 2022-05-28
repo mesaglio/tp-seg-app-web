@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import api from "./Services/Api";
-import { getToken } from "./Utils";
+import { getToken } from "./Utils/Utils";
 
 export default function RolesDropdown(props) {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ export default function RolesDropdown(props) {
   useEffect(() => {
     console.log(props);
     setRole(props.row.role);
-    setEmail(props.row.email);
+    setEmail(props.row.emails);
   }, []);
 
   async function updateUserRole(newRole) {

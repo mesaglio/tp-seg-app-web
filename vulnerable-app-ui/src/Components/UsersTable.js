@@ -2,20 +2,11 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import api from "./Services/Api";
 import RolesDropdown from "./RolesDropdown";
-import { getToken } from "./Utils";
+import { getToken } from "./Utils/Utils";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
+  { field: "emails", headerName: "Email", width: 200 },
   {
     field: "role",
     headerName: "Role",
@@ -27,51 +18,37 @@ const columns = [
 const rows = [
   {
     id: 1,
-    lastName: "Snow",
-    firstName: "Jon",
-    email: "abcd@gmail.com",
+    emails: "jonsnow1234@gmail.com",
     role: "User",
   },
   {
     id: 2,
-    lastName: "Lannister",
-    firstName: "Cersei",
-    email: "abcd2@gmail.com",
+    emails: "abcd2@gmail.com",
     role: "Admin",
   },
   {
     id: 3,
-    lastName: "Lannister",
-    firstName: "Jaime",
-    email: "abcd3@gmail.com",
+    emails: "abcd3@gmail.com",
     role: "User",
   },
   {
     id: 4,
-    lastName: "Stark",
-    firstName: "Arya",
-    email: "abcd4@gmail.com",
+    emails: "abcd4@gmail.com",
     role: "User",
   },
   {
     id: 5,
-    lastName: "Targaryen",
-    firstName: "Daenerys",
-    email: "abcd5@gmail.com",
+    emails: "abcd5@gmail.com",
     role: "Enterprise",
   },
   {
     id: 6,
-    lastName: "Melisandre",
-    firstName: null,
-    email: "abcd6@gmail.com",
+    emails: "abcd6@gmail.com",
     role: "Enterprise",
   },
   {
     id: 7,
-    lastName: "Clifford",
-    firstName: "Ferrara",
-    email: "abcd7@gmail.com",
+    emails: "abcd7@gmail.com",
     role: "Enterprise",
   },
 ];
@@ -99,7 +76,7 @@ export default function UsersTable() {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        rows={rows} //TODO: Change it to users state
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
