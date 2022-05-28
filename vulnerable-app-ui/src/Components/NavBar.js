@@ -12,13 +12,34 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useNavigate } from "react-router-dom";
+import { isAdmin, getUserRole, Roles } from "./Utils/Utils";
 
-const pages = ["Users", "Roles"];
+const pages = [
+  {
+    name: "Movies",
+    route: "/movies",
+    hide: false,
+  },
+  {
+    name: "Add Movie",
+    route: "/addmovie",
+    hide: !isAdmin(),
+  },
+  {
+    name: "Users",
+    route: "/users",
+    hide: getUserRole() !== Roles.Admin,
+  },
+];
+
 const settings = ["Profile", "Account", "Logout"];
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  let navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -27,12 +48,20 @@ const NavBar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (route) => {
     setAnchorElNav(null);
+    return navigate(route);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
+
+    if (setting === "Logout") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+
+      return navigate("/login");
+    }
   };
 
   return (
@@ -87,11 +116,16 @@ const NavBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {pages
+                .filter((x) => !x.hide)
+                .map((page) => (
+                  <MenuItem
+                    key={page.name}
+                    onClick={() => handleCloseNavMenu(page.route)}
+                  >
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -114,16 +148,17 @@ const NavBar = () => {
             UTN
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                href={`/${page.toLowerCase()}`}
-              >
-                {page}
-              </Button>
-            ))}
+            {pages
+              .filter((x) => !x.hide)
+              .map((page) => (
+                <Button
+                  key={page.name}
+                  onClick={() => handleCloseNavMenu(page.route)}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.name}
+                </Button>
+              ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -149,7 +184,10 @@ const NavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => handleCloseUserMenu(setting)}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

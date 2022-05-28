@@ -11,8 +11,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import api from "./Services/Api";
+import { getToken } from "./Utils/Utils";
 
 function Copyright(props) {
   return (
@@ -30,13 +31,24 @@ function Copyright(props) {
 }
 
 export default function SignIn(props) {
-  let navigate = useNavigate();
-
   async function signIn(email, password) {
     await api.post("/login", {
       email: email,
       password: password,
     });
+  }
+
+  async function getUserRole() {
+    await api
+      .get("/user/role", {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
+      .then((response) => {
+        localStorage.setItem("role", response?.role);
+      })
+      .catch(() => {
+        alert("Failed on fetching user role!");
+      });
   }
 
   const handleSubmit = (event) => {
@@ -47,8 +59,15 @@ export default function SignIn(props) {
     let password = data.get("password");
 
     signIn(email, password)
-      .then(() => {
-        return navigate("/users");
+      .then((response) => {
+        //Verify token response
+        console.log(response);
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+
+        getUserRole();
+
+        return <Navigate to="/movies" />;
       })
       .catch(() => {
         alert("Login failed!");
