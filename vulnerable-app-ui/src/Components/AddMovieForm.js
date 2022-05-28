@@ -21,8 +21,8 @@ function AddMovieForm() {
     };
 
     api
-      .post("/movies", body, {
-        headers: { Authorization: `Bearer ${getToken()}` },
+      .post("/movie", body, {
+        headers: { JWT: `${getToken()}` },
       })
       .then(() => {
         setMovieName("");

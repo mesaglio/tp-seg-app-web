@@ -21,6 +21,8 @@ function App() {
               <NavBar />
               <UsersTable />
             </>
+          ) : isLoggedIn() && getUserRole() !== Roles.Admin ? (
+            <NotFound />
           ) : (
             <SignIn />
           )

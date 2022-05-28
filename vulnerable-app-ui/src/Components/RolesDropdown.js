@@ -24,7 +24,7 @@ export default function RolesDropdown(props) {
 
     await api
       .put(`/user?email=${email}`, body, {
-        headers: { Authorization: `Bearer ${getToken()}` },
+        headers: { JWT: `${getToken()}` },
       })
       .then(() => {
         setRole(newRole);

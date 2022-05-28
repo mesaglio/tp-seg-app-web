@@ -23,8 +23,8 @@ export default function MoviesTable() {
 
   async function getMovies() {
     api
-      .get("/movies", {
-        headers: { Authorization: `Bearer ${getToken()}` },
+      .get("/movie", {
+        headers: { JWT: `${getToken()}` },
       })
       .then((response) => {
         setMovies(response);
