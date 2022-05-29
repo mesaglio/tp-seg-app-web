@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import SchoolIcon from "@mui/icons-material/School";
 import { useNavigate } from "react-router-dom";
 import { isAdmin, getUserRole, Roles } from "./Utils/Utils";
 
@@ -57,7 +57,7 @@ const NavBar = () => {
     setAnchorElUser(null);
 
     if (setting === "Logout") {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       localStorage.removeItem("role");
 
       return navigate("/login");
@@ -68,7 +68,7 @@ const NavBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <SchoolIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -128,7 +128,7 @@ const NavBar = () => {
                 ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <SchoolIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap

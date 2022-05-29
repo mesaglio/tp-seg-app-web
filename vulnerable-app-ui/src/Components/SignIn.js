@@ -63,7 +63,7 @@ export default function SignIn(props) {
         //Verify token response
         console.log(response);
         const token = response.data.token;
-        localStorage.setItem("token", token);
+        sessionStorage.setItem("token", token);
 
         getUserRole();
 
