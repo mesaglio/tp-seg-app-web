@@ -41,7 +41,7 @@ export default function SignIn(props) {
   async function getUserRole() {
     await api
       .get("/user/role", {
-        headers: { Authorization: `Bearer ${getToken()}` },
+        headers: { JWT: `${getToken()}` },
       })
       .then((response) => {
         localStorage.setItem("role", response?.role);

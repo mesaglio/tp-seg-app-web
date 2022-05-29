@@ -63,7 +63,7 @@ export default function UsersTable() {
   async function getUsers() {
     await api
       .get("/user", {
-        headers: { Authorization: `Bearer ${getToken()}` },
+        headers: { JWT: `${getToken()}` },
       })
       .then((response) => {
         setUsers(response);
