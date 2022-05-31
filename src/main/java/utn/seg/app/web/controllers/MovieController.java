@@ -14,9 +14,9 @@ import utn.seg.app.web.models.Movie;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class MovieController {
-    private static final Logger logger = LogManager.getLogger("tp-seg-app-web");
+    private static final Logger logger = LogManager.getLogger("App");
 
     @Autowired
     Jwt jwtComponent;

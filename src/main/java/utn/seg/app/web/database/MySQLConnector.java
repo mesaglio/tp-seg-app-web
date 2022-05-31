@@ -3,17 +3,18 @@ package utn.seg.app.web.database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
-import java.util.Arrays;
+import utn.seg.app.web.models.Movie;
+import utn.seg.app.web.models.User;
+
 import javax.annotation.PostConstruct;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import utn.seg.app.web.models.User;
-import utn.seg.app.web.models.Movie;
 
 @Component
 public class MySQLConnector {
-    private static final Logger logger = LogManager.getLogger("tp-seg-app-web");
+    private static final Logger logger = LogManager.getLogger("App");
+
     private Connection connector;
 
     @PostConstruct
@@ -47,6 +48,7 @@ public class MySQLConnector {
             ResultSet rs = stmt.executeQuery("select * from users");
             while(rs.next()) {
                 User u = new User();
+                u.setId(rs.getInt("id"));
                 u.setEmails(rs.getNString("email"));
                 u.setPassword(rs.getNString("password"));
                 u.setRole(rs.getNString("role"));
@@ -105,4 +107,18 @@ public class MySQLConnector {
             throwables.printStackTrace();
         }
     }
+    public String GetUserRole(String email){
+        try {
+            String query = "select role from users where email = ?";
+            PreparedStatement stmt = this.connector.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return rs.getNString("role");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
 }
