@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 
 export const getToken = () => {
-  return localStorage.getItem("token");
+  return sessionStorage.getItem("token");
 };
 
 export const isLoggedIn = () => {
