@@ -1,0 +1,13 @@
+.movies-data-grid{
+    height: 400px !important;
+    width: 100% !important;
+}
+
+.MuiDataGrid-row{
+    min-height: 100px !important;
+}
+
+.MuiDataGrid-cell {
+    height: inherit !important;
+    max-height: none !important;
+}

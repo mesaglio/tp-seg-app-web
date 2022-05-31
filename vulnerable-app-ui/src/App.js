@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import SignIn from "./SignIn";
-import UsersTable from "./UsersTable";
-import NotFound from "./NotFound";
-import NavBar from "./NavBar";
-import MoviesTable from "./MoviesTable";
-import AddMovieForm from "./AddMovieForm";
+import SignIn from "./Pages/SignIn/SignIn";
+import UsersTable from "./Pages/Users/UsersTable";
+import NotFound from "./Pages/NotFound/NotFound";
+import NavBar from "./Pages/Components/NavBar";
+import MoviesTable from "./Pages/Movies/MoviesTable";
+import AddMovieForm from "./Pages/AddMovie/AddMovieForm";
 import { isLoggedIn, isAdmin, getUserRole, Roles } from "./Utils/Utils";
 
 function App() {

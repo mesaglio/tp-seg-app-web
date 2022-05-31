@@ -1,44 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import api from "./Services/Api";
-import RolesDropdown from "./RolesDropdown";
-import { getToken } from "./Utils/Utils";
+import api from "../../Services/Api";
+import { getToken } from "../../Utils/Utils";
 
 const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "emails", headerName: "Email", width: 200 },
-    {
-        field: "role",
-        headerName: "Role",
-        width: 170,
-        renderCell: RolesDropdown,
-    },
+    { field: "name", headerName: "Name", width: 130 },
 ];
 
-export default function UsersTable() {
-    const [users, setUsers] = useState([]);
+export default function MoviesTable() {
+    const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        getUsers();
+        getMovies();
     }, []);
 
-    async function getUsers() {
-        await api
-            .get("/user", {
+    async function getMovies() {
+        api
+            .get("/movie", {
                 headers: { JWT: `${getToken()}` },
             })
             .then((response) => {
-                setUsers(response.data);
+                setMovies(response.data);
             })
             .catch(() => {
-                alert("Failed on fetching users!");
+                alert("Failed on fetching movies!");
             });
     }
 
     return (
         <div style={{ height: 400, width: "100%" }}>
             <DataGrid
-                rows={users}
+                rows={movies}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}

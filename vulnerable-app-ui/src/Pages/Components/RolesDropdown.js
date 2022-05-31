@@ -4,8 +4,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import api from "./Services/Api";
-import { getToken } from "./Utils/Utils";
+import api from "../../Services/Api";
+import { getToken } from "../../Utils/Utils";
 
 export default function RolesDropdown(props) {
   const [email, setEmail] = useState("");
