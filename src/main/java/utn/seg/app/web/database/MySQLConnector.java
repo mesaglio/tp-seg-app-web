@@ -3,16 +3,17 @@ package utn.seg.app.web.database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
+import utn.seg.app.web.models.Movie;
 import utn.seg.app.web.models.User;
 
 import javax.annotation.PostConstruct;
 import java.sql.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class MySQLConnector {
+    private static final Logger logger = LogManager.getLogger("App");
 
     private Connection connector;
 
@@ -25,7 +26,7 @@ public class MySQLConnector {
             e.printStackTrace();
         }
     }
-    
+
     public boolean isValidUser(String email, String password) {
         try {
             String query = "select * from users where email = ?";
@@ -47,6 +48,7 @@ public class MySQLConnector {
             ResultSet rs = stmt.executeQuery("select * from users");
             while(rs.next()) {
                 User u = new User();
+                u.setId(rs.getInt("id"));
                 u.setEmails(rs.getNString("email"));
                 u.setPassword(rs.getNString("password"));
                 u.setRole(rs.getNString("role"));
@@ -68,6 +70,43 @@ public class MySQLConnector {
         }
     }
 
+    public List<Movie> getAllMovies() {
+        List<Movie> movies = new ArrayList<>();
+        try {
+            Statement stmt = this.connector.createStatement();
+            ResultSet rs = stmt.executeQuery("select id, name from movies");
+            while (rs.next()) {
+                Movie movie = new Movie(rs.getInt("id"), rs.getNString("name"));
+                movies.add(movie);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return movies;
+    }
+
+    public boolean existsMovie(String name) {
+        try {
+            Statement stmt = this.connector.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "select 1 from test.movies where lower(name) = '" + name.toLowerCase() + "';");
+            rs.last();
+            return rs.getInt(1) > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public void addMovie(String name) {
+        try {
+            Statement stmt = this.connector.createStatement();
+            String query = "insert into test.movies (name) values ('" + name + "');";
+            stmt.execute(query);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
     public String GetUserRole(String email){
         try {
             String query = "select role from users where email = ?";

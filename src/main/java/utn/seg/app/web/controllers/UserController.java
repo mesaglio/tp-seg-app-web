@@ -14,10 +14,10 @@ import utn.seg.app.web.models.User;
 
 import java.util.List;
 
-@RestController
+@RestController()
+@CrossOrigin(origins = "http://localhost:3000/")
 public class UserController {
-
-    private static final Logger logger = LogManager.getLogger("tp-seg-app-web");
+    private static final Logger logger = LogManager.getLogger("App");
 
     @Autowired
     Jwt jwtComponent;
@@ -35,14 +35,12 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user")//@RequestHeader("JWT") String token
+    @PutMapping("/user")
     public ResponseEntity AddRoleToUser(@RequestParam String email, @RequestBody AddRoleRequest roleRequest) {
         try {
-            //Claims claim = jwtComponent.decodeJWT(token);
-            //String email = claim.get("email").toString();
             String role = roleRequest.getRole();
             logger.info("Adding rol " + role + " to " + email);
-            //dbConnector.AddRoleToUser(role, email);
+            dbConnector.AddRoleToUser(role, email);
             return ResponseEntity.status(200).build();
         } catch (io.jsonwebtoken.MalformedJwtException e) {
             return ResponseEntity.status(403).build();
