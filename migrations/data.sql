@@ -12,7 +12,7 @@ create table if not exists test.movies
     name    varchar(256) charset utf8 null
 );
 
-INSERT INTO test.users (id, email, password, role) VALUES (1,'admi1n@gmail.com', '63a9f0ea7bb98050796b649e85481845', 'Admin');
+INSERT INTO test.users (id, email, password, role) VALUES (1,'admin1@gmail.com', '63a9f0ea7bb98050796b649e85481845', 'Admin');
 INSERT INTO test.users (id, email, password, role) VALUES (2,'admin2@gmail.com', '63a9f0ea7bb98050796b649e85481845', 'Enterprise')
 INSERT INTO test.users (id, email, password, role) VALUES (3,'admin3@gmail.com', '63a9f0ea7bb98050796b649e85481845', 'User')
 INSERT INTO test.movies (name) VALUES ('Titanic');
