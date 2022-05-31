@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import api from "./Services/Api";
-import { getToken } from "./Utils/Utils";
+import api from "../../Services/Api";
+import { getToken } from "../../Utils/Utils";
 
 function AddMovieForm() {
   const [movieName, setMovieName] = useState("");
