@@ -21,7 +21,7 @@ public class MySQLConnector {
     private void Connector(){
         try {
             this.connector = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true","root","root");
+                    "jdbc:mysql://database:3306/test?useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true","root","root");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,6 +35,20 @@ public class MySQLConnector {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return rs.getNString("password").equals(password);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isAdmin(String email) {
+        try {
+            String query = "select role from users where email = ?";
+            PreparedStatement stmt = this.connector.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return rs.getNString("role").equals("Admin");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

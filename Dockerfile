@@ -8,7 +8,9 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install git sudo=1.8.31-1ubuntu1 make gcc openjdk-8-jdk -y
+RUN adduser --disabled-password --gecos '' newuser
+USER newuser
 EXPOSE 8080
-RUN mkdir /app
-COPY --from=builder /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
-CMD ["java", "-jar", "/app/spring-boot-application.jar"]
+WORKDIR /home/newuser
+COPY --from=builder /home/gradle/src/build/libs/*.jar /home/newuser/spring-boot-application.jar
+CMD ["java", "-jar", "/home/newuser/spring-boot-application.jar"]

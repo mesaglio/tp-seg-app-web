@@ -29,7 +29,7 @@ public class LoginController {
     public ResponseEntity login(@RequestBody LoginRequest body) {
         String password = body.getPassword();
         if (mySQLConnector.isValidUser(body.getEmail(), password)) {
-            String token = jwtComponent.createJWT(body.getEmail(), true);
+            String token = jwtComponent.createJWT(body.getEmail(), mySQLConnector.isAdmin(body.getEmail()));
             LoginResponse response = new LoginResponse();
             response.setToken(token);
             return ResponseEntity.status(200).body(response);

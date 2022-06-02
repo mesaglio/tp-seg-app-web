@@ -19,6 +19,11 @@ export const getUserRole = () => {
     return localStorage.getItem("role");
 };
 
+export const isEnterprise = () => {
+    let role = getUserRole();
+    return role === "Enterprise";
+};
+
 export const Roles = {
     Admin: "Admin",
     Enterprise: "Enterprise",

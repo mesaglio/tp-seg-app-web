@@ -1,0 +1,33 @@
+version: '3.0'
+
+services:
+  db:
+    image: "mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./migrations/data.sql:/docker-entrypoint-initdb.d/data.sql"
+  app:
+    build:
+      dockerfile: "Dockerfile"
+      context: .
+    depends_on:
+      - db
+    links:
+      - "db:database"
+    ports:
+      - "8080:8080"
+  front:
+    build: 
+      context: "vulnerable-app-ui/"
+      dockerfile: "Dockerfile"
+    depends_on:
+      - app
+    links:
+      - "app:backend"
+    ports:
+      - "3000:3000"
+    

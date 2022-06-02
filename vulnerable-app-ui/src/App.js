@@ -6,7 +6,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import NavBar from "./Pages/Components/NavBar";
 import MoviesTable from "./Pages/Movies/MoviesTable";
 import AddMovieForm from "./Pages/AddMovie/AddMovieForm";
-import { isLoggedIn, isAdmin, getUserRole, Roles } from "./Utils/Utils";
+import { isLoggedIn, isAdmin, isEnterprise, getUserRole, Roles } from "./Utils/Utils";
 
 function App() {
     return (
@@ -44,7 +44,7 @@ function App() {
             <Route
                 path="addmovie"
                 element={
-                    isLoggedIn() && isAdmin() ? (
+                    isLoggedIn() && isEnterprise() ? (
                         <>
                             <NavBar />
                             <AddMovieForm />
