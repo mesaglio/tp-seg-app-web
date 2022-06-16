@@ -14,7 +14,7 @@ import utn.seg.app.web.models.Movie;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*")
 public class MovieController {
     private static final Logger logger = LogManager.getLogger("App");
 

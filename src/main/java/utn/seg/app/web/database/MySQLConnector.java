@@ -21,7 +21,7 @@ public class MySQLConnector {
     private void Connector(){
         try {
             this.connector = DriverManager.getConnection(
-                    "jdbc:mysql://database:3306/test?useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true","root","root");
+                    "jdbc:mysql://db:3306/test?useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true","root","root");
         } catch (SQLException e) {
             e.printStackTrace();
         }
