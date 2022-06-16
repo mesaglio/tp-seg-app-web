@@ -15,7 +15,7 @@ import utn.seg.app.web.models.LoginRequest;
 import utn.seg.app.web.models.LoginResponse;
 
 @RestController()
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class LoginController {
     private static final Logger logger = LogManager.getLogger("App");
 

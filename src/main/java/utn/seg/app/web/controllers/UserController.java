@@ -15,7 +15,7 @@ import utn.seg.app.web.models.User;
 import java.util.List;
 
 @RestController()
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class UserController {
     private static final Logger logger = LogManager.getLogger("App");
 
