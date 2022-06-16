@@ -2,3 +2,5 @@
 migrations
 sudo_poc
 vulnerable-app-ui
+build
+exploit_env
