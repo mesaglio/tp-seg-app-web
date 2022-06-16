@@ -11,9 +11,7 @@ services:
     volumes:
       - "./migrations/data.sql:/docker-entrypoint-initdb.d/data.sql"
   app:
-    build:
-      dockerfile: "Dockerfile"
-      context: .
+    image: "juanmesaglio/tp:latest"
     depends_on:
       - db
     links:
